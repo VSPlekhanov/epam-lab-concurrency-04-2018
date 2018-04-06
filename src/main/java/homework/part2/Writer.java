@@ -19,14 +19,7 @@ public class Writer extends Thread{
             chars[i] = (char)random.nextInt(1<<16 - 1);
         }
 
-        storage.readerIsHere = true;
-        synchronized (storage) {
-            System.out.println(Thread.currentThread().getName() + " in the storage");
-            TimeUnit.SECONDS.sleep(1);
-            storage.setString(new String(chars));
-            storage.notify();
-        }
-        storage.readerIsHere = false;
+        storage.setString(new String(chars));
     }
 
     public void run(){

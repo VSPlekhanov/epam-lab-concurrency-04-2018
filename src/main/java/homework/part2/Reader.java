@@ -10,22 +10,11 @@ public class Reader extends Thread{
         this.storage = storage;
     }
 
-    private void read() throws InterruptedException {
-        synchronized (storage) {
-            if (storage.readerIsHere) storage.wait();
-            System.out.println(Thread.currentThread().getName() + " in the storage");
-            TimeUnit.SECONDS.sleep(1);
-            System.out.println(storage.getString());
-            if(!storage.readerIsHere) storage.notify();
-        }
-
-    }
-
     public void run(){
         while(true){
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
-                read();
+                System.out.println(storage.getString());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
